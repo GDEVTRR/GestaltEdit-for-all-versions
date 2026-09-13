@@ -27,9 +27,9 @@ struct GestaltEditApp: App {
                     }
                 } message: {
                     Text("""
-                    Bu sürüm iOS 17 ve üzeri için tasarlanmıştır.
+                   This App designed İOS/İpadOS 27 .
 
-                    Bazı Gestalt alanları iOS sürümüne göre kullanılamayabilir.
+                    Some Gestalt fields may not be available depending on the iOS version.
                     """)
                 }
         }
