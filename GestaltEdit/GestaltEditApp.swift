@@ -13,5 +13,4 @@ struct GestaltEditApp: App {
     init() {
         AutomationCommand.runIfNeeded()
     }
-    }
 }
