@@ -16,15 +16,22 @@ jobs:
 
       - name: Build Project for iOS
         run: |
+          # Proje dosyasını ve otomatik olarak ilk Scheme adını bulur
+          PROJ=$(ls -d *.xcodeproj | head -n 1)
+          SCHEME=$(xcodebuild -list -project "$PROJ" | awk '/Schemes:/{flag=1; next} /^[[:space:]]*$/{flag=0} flag' | xargs | awk '{print $1}')
+          
+          echo "Building project: $PROJ with scheme: $SCHEME"
+
           xcodebuild build \
-            -project *.xcodeproj \
-            -scheme GestaltEdit \
+            -project "$PROJ" \
+            -scheme "$SCHEME" \
             -sdk iphoneos \
             -configuration Release \
             -derivedDataPath build \
-            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGN_IDENTITY="" \
+            AD_HOC_CODE_SIGNING_ALLOWED=YES
 
       - name: Create IPA Package
         run: |
