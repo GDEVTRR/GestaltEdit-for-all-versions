@@ -229,8 +229,9 @@ enum GestaltTweakCatalog {
             id: .landscapeFaceId,
             category: .hardware,
             title: String(localized: "Landscape Face ID"),
-            detail: String(localized: "Enables Face ID unlocking while holding the device horizontally."),
-            values: ["O0/qR45k85S/M/88SnyS9w": 1]
+            detail: String(localized: "(BETA) Enables Face ID unlocking while holding the device horizontally."),
+            values: ["O0/qR45k85S/M/88SnyS9w": 1],
+            isRisky: true
         )
     ]
 
