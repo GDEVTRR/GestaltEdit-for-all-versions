@@ -40,6 +40,7 @@ enum GestaltTweakID: String, CaseIterable, Identifiable {
     case collisionSOS
     case alwaysOnDisplay
     case alwaysOnDisplayVibrancy
+    case landscapeFaceId
 
     var id: String { rawValue }
 }
@@ -77,7 +78,23 @@ enum GestaltTweakCatalog {
         .init(id: .internalInstall, category: .internalFeatures, title: String(localized: "Apple Internal Install"), detail: String(localized: "Enables internal capabilities such as Metal HUD; some services may misbehave."), values: ["EqrsVvjcYDdxHBiQmGhAWw": 1], isRisky: true),
         .init(id: .internalStorage, category: .internalFeatures, title: String(localized: "Internal Storage View"), detail: String(localized: "Shows internal files in Storage settings; high risk on some iPads."), values: ["LBJfwOEzExRxzlAnSuI7eg": 1], isRisky: true),
         .init(id: .securityResearchDevice, category: .internalFeatures, title: String(localized: "Security Research Device Mode"), detail: String(localized: "Marks the device as a Security Research Device."), values: ["XYlJKKkj2hztRP1NWWnhlw": 1], isRisky: true)
-    ]
+    ],
+    .init(
+            id: .securityResearchDevice, 
+            category: .internalFeatures, 
+            title: String(localized: "Security Research Device Mode"), 
+            detail: String(localized: "Marks the device as a Security Research Device."), 
+            values: ["XYlJKKkj2hztRP1NWWnhlw": 1], 
+            isRisky: true
+        ), // <-- Buraya virgül koymayı unutma
+        .init(
+            id: .landscapeFaceID, 
+            category: .hardware, 
+            title: String(localized: "Landscape Face ID"), 
+            detail: String(localized: "Enables Face ID unlocking while holding the device horizontally."), 
+            values: ["O0/qR45k85S/M/88SnyS9w": 1]
+        )
+    ] // <-- Köşeli parantez en altta kalacak
 
     static func definition(for id: GestaltTweakID) -> GestaltTweakDefinition? {
         definitions.first { $0.id == id }
