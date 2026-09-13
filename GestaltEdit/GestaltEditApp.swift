@@ -13,4 +13,11 @@ struct GestaltEditApp: App {
     init() {
         AutomationCommand.runIfNeeded()
     }
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .environmentObject(viewModel)
+        }
+    }
 }
