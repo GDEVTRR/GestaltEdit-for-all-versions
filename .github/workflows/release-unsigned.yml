@@ -17,29 +17,26 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer
 
-      - name: Build Project for iOS
+      - name: Build Archive (Unsigned)
         run: |
-          # Proje ve Scheme ismini otomatik tespit et
           PROJ_FILE=$(ls -d *.xcodeproj | head -n 1)
           SCHEME_NAME=$(xcodebuild -list -project "$PROJ_FILE" | grep -A 10 "Schemes:" | tail -n +2 | xargs | awk '{print $1}')
           
-          echo "Compiling $PROJ_FILE using scheme: $SCHEME_NAME"
+          echo "Building Archive for $PROJ_FILE using scheme: $SCHEME_NAME"
 
-          xcodebuild build \
+          xcodebuild archive \
             -project "$PROJ_FILE" \
             -scheme "$SCHEME_NAME" \
             -sdk iphoneos \
-            -configuration Release \
-            -derivedDataPath build \
+            -archivePath build/GestaltEdit.xcarchive \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            AD_HOC_CODE_SIGNING_ALLOWED=YES
+            CODE_SIGN_IDENTITY=""
 
-      - name: Create IPA Package
+      - name: Package IPA
         run: |
           mkdir -p Payload
-          cp -r build/Build/Products/Release-iphoneos/*.app Payload/
+          cp -r build/GestaltEdit.xcarchive/Products/Applications/*.app Payload/
           zip -r GestaltEdit.ipa Payload
 
       - name: Upload IPA Artifact
